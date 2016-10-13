@@ -62,28 +62,28 @@ description: ""
 
 当从内核态返回到用户态的时候，要检查是否进行调度，而调度要看两个条件：
 
-1.preempt_count是否为0
-2.rescheduled是否置位
- 
- 
+__1. preempt_count是否为0__
+
+__2. rescheduled是否置位__
+
 检查preempt_count的时候，是统一检查是否为0，也就是说，__有4个条件限制，可能不能够进行调度。__
-1. preempt_disable()    	
+
+1. preempt_disable()
 
     #define preempt_disable() \
 		do { \
-		inc_preempt_count(); \
-    	barrier(); \
-	} while (0)
+			inc_preempt_count(); \
+    		barrier(); \
+    	while (0)
 
 	#define inc_preempt_count() add_preempt_count(1)
  
 会在preempt_enable中释放
  
 2. add\_preempt\_count(HARDIRQ_OFFSET)
-是在irq_enter()中调用的，记录进入硬件中断处理的次数（计数），
-会在irq_exit()中释放
- 
-3. __local_bh_disable((unsigned long)__builtin_return_address(0));
+是在irq_enter()中调用的，记录进入硬件中断处理的次数（计数），会在irq_exit()中释放
+
+3. \_\_local\_bh\_disable((unsigned long)\_\_builtin\_return\_address(0));
 在do_softirq中调用的，
 
 	static inline void __local_bh_disable(unsigned long ip)
@@ -92,7 +92,7 @@ description: ""
 		barrier();
 	}
  
-4.总开关，第一位。
+4. 总开关，第一位。
 
 {% highlight ruby %}
 文档信息
