@@ -15,15 +15,15 @@ redcarpet:
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : liberize's blog
+title : kyle's blog
 tagline: Free as the wind.
 author :
-  name : liberize
-  email : liberize@gmail.com
-  github : liberize
-  twitter : liberize
-  weibo : liberize
-  v2ex : liberize
+  name : kyle
+  email : lwang998@gmail.com
+  github : kyle
+  twitter : kyle
+  weibo : kyle
+  v2ex : kyle
   googleplus : 118314345733357791088
   feedburner : feedname
 
@@ -35,7 +35,7 @@ author :
 # Else if you are pushing to username.github.io, replace with your username.
 # Finally if you are pushing to a GitHub project page, include the project name at the end.
 #
-production_url : http://liberize.me
+production_url : https://e-mailky.github.io/
 cdn_url : http://liberize.u.qiniudn.com
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
@@ -75,7 +75,7 @@ JB :
   #   http://s3.amazonaws.com/yoursite/themes/watermelon
   #   /assets
   #
-  ASSET_PATH : false
+  ASSET_PATH : ./assets/themes/twitter/
   IMAGE_PATH : false
 
   # These paths are to the main pages Jekyll-Bootstrap ships with.
@@ -96,9 +96,9 @@ JB :
   comments :
     provider : duoshuo
     duoshuo :
-      short_name : liberize
+      short_name : kyle
     disqus :
-      short_name : liberize
+      short_name : kyle
     livefyre :
       site_id : 123
     intensedebate :
