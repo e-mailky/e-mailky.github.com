@@ -3,7 +3,7 @@ layout: post
 title:  "内核使用硬件ip的dma，dma_alloc_coherent 与 dma_alloc_writecombine"
 date:   2016-10-13 10:09:35
 categories: [编程, Linux, Kernel]
-tags: [SCM, Git, ]
+tags: [Linux, Kernel, ]
 description: ""
 ---
 

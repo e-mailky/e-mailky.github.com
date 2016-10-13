@@ -3,7 +3,7 @@ layout: post
 title:  "Linux内核入门—— __attribute__ 机制"
 date:   2016-10-13 10:09:35
 categories: [编程, Linux, Kernel]
-tags: [SCM, Git, ]
+tags: [Linux, C, ]
 description: ""
 ---
 
