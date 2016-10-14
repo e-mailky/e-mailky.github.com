@@ -39,8 +39,11 @@ $(obj)/piggy.o: $(obj)/piggy.gz FORCE
 **总结一下zImage的组成，它是由一个压缩后的内核piggy.o，连接上一段初始化及解压功能的代码（head.o misc.o）,组成的。**
 
 &emsp;&emsp;下面就要看内核的启动了，那么内核是从什么地方开始运行的呢？这个当然要看lds文件啦。
+
 zImage的生成经历了两次大的链接过程：
+
 &emsp;&emsp;一次是顶层vmlinux的生成，由arch/arm/boot/vmlinux.lds（这个lds文件是由arch/arm/kernel/vmlinux.lds.S生成的）决定；
+
 &emsp;&emsp;另一次是arch/arm/boot/compressed/vmlinux的生成，是由arch/arm/boot/compressed/vmlinux.lds（这个lds文件是由arch/arm/boot/compressed/vmlinux.lds.in生成的）决定。zImage的入口点应该由arch/arm/boot/compressed/vmlinux.lds决定。从中可以看出入口点为‘_start’
 
 ```
