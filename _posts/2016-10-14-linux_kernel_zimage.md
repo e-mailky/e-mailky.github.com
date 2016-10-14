@@ -11,6 +11,7 @@ description: ""
 &emsp;&emsp;先看看zImage的组成吧。在内核编译完成后会在arch/arm/boot/下生成zImage。
 
 在arch/armboot/Makefile中：
+
 ```
 $(obj)/zImage: $(obj)/compressed/vmlinux FORCE
     $(call if_changed,objcopy)
@@ -19,6 +20,7 @@ $(obj)/zImage: $(obj)/compressed/vmlinux FORCE
 由此可见，zImage的是elf格式的arch/arm/boot/compressed/vmlinux二进制化得到的
 
 在arch/armboot/compressed/Makefile中：
+
 ```
 $(obj)/vmlinux: $(obj)/vmlinux.lds $(obj)/$(HEAD) $(obj)/piggy.o /
                               $(addprefix $(obj)/, $(OBJS)) FORCE
@@ -40,6 +42,7 @@ $(obj)/piggy.o: $(obj)/piggy.gz FORCE
 zImage的生成经历了两次大的链接过程：
 &emsp;&emsp;一次是顶层vmlinux的生成，由arch/arm/boot/vmlinux.lds（这个lds文件是由arch/arm/kernel/vmlinux.lds.S生成的）决定；
 &emsp;&emsp;另一次是arch/arm/boot/compressed/vmlinux的生成，是由arch/arm/boot/compressed/vmlinux.lds（这个lds文件是由arch/arm/boot/compressed/vmlinux.lds.in生成的）决定。zImage的入口点应该由arch/arm/boot/compressed/vmlinux.lds决定。从中可以看出入口点为‘_start’
+
 ```
 OUTPUT_ARCH(arm)
 
@@ -213,19 +216,24 @@ SECTIONS
 先回答第1个问题
 
 &emsp;&emsp;这个地址的确定和Makefile和链接脚本有关，在arch/arm/Makefile文件中的
+
 &emsp;&emsp;textaddr-y := 0xC0008000 这个是内核启动的虚拟地址
 &emsp;&emsp;TEXTADDR := $(textaddr-y)
 
 在arch/arm/mach-s3c2410/Makefile.boot中
+
 &emsp;&emsp;zreladdr-y := 0x30008000 这个就是zImage的运行地址了
 
 在arch/arm/boot/Makefile文件中
+
 &emsp;&emsp;ZRELADDR := $(zreladdr-y)
 
 在arch/arm/boot/compressed/Makefile文件中
+
 &emsp;&emsp;zreladdr=$(ZRELADDR)
 
 在arch/arm/boot/compressed/Makefile中有
+
 &emsp;&emsp;.word zreladdr @ r4
 
 内核就是用这种方式让代码知道最终运行的位置的
@@ -247,7 +255,9 @@ arch_id ：architecture ID，对于SMDK2410这个值为193；
 最后回答第3个问题
 
 首先看看piggy.o是如何生成的，在arch/arm/boot/compressed/Makefie中
+
 &emsp;&emsp;$(obj)/piggy.o: $(obj)/piggy.gz FORCE
+
 Piggy.o是由piggy.S生成的，咱们看看piggy.S的内容：
 
 ```
@@ -268,6 +278,7 @@ input_data_end:
     #define get_byte() (inptr < insize ? inbuf[inptr++] : fill_inbuf())
 
 查看fill_inbuf函数
+
 ```
 int fill_inbuf(void)
 
@@ -285,6 +296,7 @@ int fill_inbuf(void)
 
 }
 ```
+
 发现什么没？这里的input\_data不正是piggy.S里的input_data吗？这个时候应该明白内核是怎样确定piggy.gz在zImage中的位置了吧。
 
 时间关系，可能叙述的不够详细，大家可以集合内核代码和网上的其它相关文章，理解启动解压过程。
