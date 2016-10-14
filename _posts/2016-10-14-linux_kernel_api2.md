@@ -19,6 +19,8 @@ description: ""
 操作系统会因为一个硬件事件而产生中断（例如出现了一个来自网卡的数据包）， 对该事件的处理过程从一个中断开始。 
 通常，中断会导致大量任务停止。 其中一些任务是在中断上下文完成的，然后任务被传递给软件栈来继续处理（参见 图 1）。
 
+图 1. Top-half 以及 bottom-half 处理过程
+
 ![图 1. Top-half 以及 bottom-half 处理过程]({{ IMAGE_PATH }}/images/figure1.gif)
 
 &emsp;&emsp;问题在于，有多少任务需要在中断上下文完成？ 关于中断上下文的问题是，在此期间部分或者全部中断可以被禁止，
@@ -79,6 +81,8 @@ tasklet_schedule( &tasklet_example );
 
 &emsp;&emsp;微线程可由 tasklet\_struct 结构体表示（参见 图 2）， 
 其中包含了用于管理和维护微线程的必要数据 （状态，通过 atomic\_t 来实现允许/禁止控制，函数指针，数据，以及链表引用）。
+
+图 2. tasklet_struct 结构体的内部情况
 
 ![图 2. tasklet_struct 结构体的内部情况]({{ IMAGE_PATH }}/images/figure2.gif)
 
@@ -202,7 +206,9 @@ void cleanup_module( void )
 用来鉴别哪些任务被延迟以及使用哪个延迟函数（参见 图 3）。 events/X 内核线程（每 CPU 一个）
 从工作队列中抽取任务并激活一个 bottom-half 处理程序（由处理程序函数在结构体 work_struct 中指定）。
 
-![图 3. 工作队列背后的处理过程]({{ IMAGE_PATH }}images/figure3.gif)
+图 3. 工作队列背后的处理过程
+
+![图 3. 工作队列背后的处理过程]({{ IMAGE_PATH }}/images/figure3.gif)
 
 &emsp;&emsp;由于 work_struct 中指出了要采用的处理程序函数， 因此可以利用工作队列来为不同的处理程序进行任务排队。 
 现在，让我们看一下能够用于工作队列的 API 函数。
