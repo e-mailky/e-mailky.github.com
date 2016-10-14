@@ -279,9 +279,7 @@ Linux内核的信号量在概念和原理上与用户态的System V的IPC机制�
 获得自旋锁和释放自旋锁有好几个版本，因此让读者知道在什么样的情况下使用什么版本的获得和释放锁的宏是非常必要的。
 
 * 如果被保护的共享资源只在进程上下文访问和软中断上下文访问，那么当在进程上下文访问共享资源时，可能被软中断打断，从而可能进入软中断上下文来对被保护的共享资源访问，因此对于这种情况，对共享资源的访问必须使用spin\_lock\_bh和spin\_unlock_bh来保护。
-
   当然使用spin\_lock\_irq和spin\_unlock\_irq以及spin\_lock\_irqsave和spin\_unlock\_irqrestore也可以，它们失效了本地硬中断，失效硬中断隐式地也失效了软中断。但是使用spin\_lock\_bh和spin\_unlock_bh是最恰当的，它比其他两个快。
-
 * 如果被保护的共享资源只在进程上下文和tasklet或timer上下文访问，那么应该使用与上面情况相同的获得和释放锁的宏，因为tasklet和timer是用软中断实现的。
 * 如果被保护的共享资源只在一个tasklet或timer上下文访问，那么不需要任何自旋锁保护，**因为同一个tasklet或timer只能在一个CPU上运行，即使是在SMP环境下也是如此。**实际上tasklet在调用tasklet_schedule标记其需要被调度时已经把该tasklet绑定到当前CPU，因此同一个tasklet决不可能同时在其他CPU上运行。
   timer也是在其被使用add_timer添加到timer队列中时已经被帮定到当前CPU，所以同一个timer绝不可能运行在其他CPU上。当然同一个tasklet有两个实例同时运行在同一个CPU就更不可能了。
