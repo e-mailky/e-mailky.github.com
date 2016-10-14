@@ -80,7 +80,7 @@ tasklet_schedule( &tasklet_example );
 &emsp;&emsp;微线程可由 tasklet\_struct 结构体表示（参见 图 2）， 
 其中包含了用于管理和维护微线程的必要数据 （状态，通过 atomic\_t 来实现允许/禁止控制，函数指针，数据，以及链表引用）。
 
-![图 2. tasklet_struct 结构体的内部情况]({{ IMAGE_PATH }}/figure2.gif)
+![图 2. tasklet_struct 结构体的内部情况]({{ IMAGE_PATH }}/images/figure2.gif)
 
 通过软中断机制来调度微线程，当机器处于严重软件中断负荷之下时， 可通过 ksoftirqd（一种每 CPU 内核线程）软中断来调度。 下面将探讨微线程应用编程接口（API）中支持的各类函数
 
@@ -202,7 +202,7 @@ void cleanup_module( void )
 用来鉴别哪些任务被延迟以及使用哪个延迟函数（参见 图 3）。 events/X 内核线程（每 CPU 一个）
 从工作队列中抽取任务并激活一个 bottom-half 处理程序（由处理程序函数在结构体 work_struct 中指定）。
 
-![图 3. 工作队列背后的处理过程]({{ IMAGE_PATH }}/figure3.gif)
+![图 3. 工作队列背后的处理过程]({{ IMAGE_PATH }}images/figure3.gif)
 
 &emsp;&emsp;由于 work_struct 中指出了要采用的处理程序函数， 因此可以利用工作队列来为不同的处理程序进行任务排队。 
 现在，让我们看一下能够用于工作队列的 API 函数。
