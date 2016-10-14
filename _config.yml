@@ -76,7 +76,7 @@ JB :
   #   /assets
   #
   ASSET_PATH : /assets/themes/twitter
-  IMAGE_PATH : false
+  IMAGE_PATH : /images
 
   # These paths are to the main pages Jekyll-Bootstrap ships with.
   # Some JB helpers refer to these paths; change them here if needed.
