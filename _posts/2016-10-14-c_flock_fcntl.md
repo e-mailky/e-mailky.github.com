@@ -3,7 +3,7 @@ layout: post
 title:  "linxu c语言 fcntl函数和flock函数区别说明"
 date:   2016-10-13 17:09:35
 categories: [编程, Linux, Kernel]
-tags: [Linux, Kernel, ]
+tags: [Linux, C, ]
 description: ""
 ---
 
@@ -30,7 +30,7 @@ description: ""
 &ensp;单一文件无法同时建立共享锁定和互斥锁定，而当使用dup()或fork()时文件描述词不会继承此种锁定。
 返回值  返回0表示成功，若有错误则返回-1，错误代码存于errno。
  
-&emsp;&emsp;&emsp;&emsp;flock只要在打开文件后，需要对文件读写之前flock一下就可以了，用完之后再flock一下，前面加锁，后面解锁。其实确实是这么简单，但是前段时间用的时候发现点问题，问题描述如下：
+&emsp;&emsp;flock只要在打开文件后，需要对文件读写之前flock一下就可以了，用完之后再flock一下，前面加锁，后面解锁。其实确实是这么简单，但是前段时间用的时候发现点问题，问题描述如下：
 一个进程去打开文件，输入一个整数，然后上一把写锁（LOCK＿EX），再输入一个整数将解锁（LOCK＿UN），另一个进程打开同样一个文件，直接向文件中写数据，发现锁不起作用，能正常写入（我此时用的是超级用户）。google了一大圈发现flock不提供锁检查，也就是说在用flock之前需要用户自己去检查一下是否已经上了锁，说明白点就是读写文件之前用一下flock检查一下文件有没有上锁，如果上锁了flock将会阻塞在那里(An attempt to lock the file using one of these file descriptors may be denied by a lock that the calling process has already placed via another descriptor ).
 
 ### linxu c语言 fcntl函数说明
