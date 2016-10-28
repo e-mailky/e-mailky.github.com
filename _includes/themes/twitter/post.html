@@ -1,72 +1,49 @@
-<section id="content">
-  <article class="post">
+<div class="page-header">
+  <h1>{{ page.title }} {% if page.tagline %}<small>{{page.tagline}}</small>{% endif %}</h1>
+</div>
 
-    <header>
-      <h1>{{ page.title }}{% if page.tagline %} <small>{{ page.tagline }}</small>{% endif %}</h1>
-    </header>
-
-    <section>
-      <div class="post-extra">
-        <div class="pull-left">
-          <span>{{ page.date | date_to_long_string }}</span>
-        </div>
-        <div class="pull-right">
-          {% include JB/sharing %}
-        </div>
-      </div>
+<div class="row-fluid post-full">
+  <div class="span12">
+    <div class="date">
+      <span>{{ page.date | date_to_long_string }}</span>
+    </div>
+    <div class="content" id="post_content">
       {{ content }}
-      {% if page.license != false %}
-      <footer>
-        <p>
-          本作品由 <a href="mailto:{{ site.author.email }}">{{ site.author.name }}</a> 创作，采用
-          <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="查看协议详细信息" target="_blank">CC BY-NC-SA 3.0 许可协议</a>
-          进行许可。
-        </p>
-      </footer>
-      {% endif %}
-    </section>
+    </div>
 
-  </article>
-</section>
-
-<section>
-
-  <div class="tag-box-wrapper">
-    {% unless page.categories == empty %}
-    <ul class="tag-box inline">
-      <li><i class="icon-large icon-folder-open"></i></li>
+  {% unless page.categories == empty %}
+    <ul class="tag_box inline">
+      <li><i class="icon-folder-open"></i></li>
       {% assign categories_list = page.categories %}
       {% include JB/categories_list %}
     </ul>
-    {% endunless %}
+  {% endunless %}  
 
-    {% unless page.tags == empty %}
-    <ul class="tag-box inline">
-      <li><i class="icon-large icon-tags"></i></li>
+  {% unless page.tags == empty %}
+    <ul class="tag_box inline">
+      <li><i class="icon-tags"></i></li>
       {% assign tags_list = page.tags %}
       {% include JB/tags_list %}
     </ul>
-    {% endunless %}
-  </div>
+  {% endunless %}  
 
-  <div class="pagination">
-    <ul>
+    <hr>
+    <div class="pagination">
+      <ul>
       {% if page.previous %}
-      <li class="prev"><a href="{{ BASE_PATH }}{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; 上一篇</a></li>
+        <li class="prev"><a href="{{ BASE_PATH }}{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; Previous</a></li>
       {% else %}
-      <li class="prev disabled"><a>&larr; 上一篇</a></li>
+        <li class="prev disabled"><a>&larr; Previous</a></li>
       {% endif %}
-      <li><a href="{{ BASE_PATH }}{{ site.JB.archive_path }}">文章列表</a></li>
+        <li><a href="{{ BASE_PATH }}{{ site.JB.archive_path }}">Archive</a></li>
       {% if page.next %}
-      <li class="next"><a href="{{ BASE_PATH }}{{ page.next.url }}" title="{{ page.next.title }}">下一篇 &rarr;</a></li>
+        <li class="next"><a href="{{ BASE_PATH }}{{ page.next.url }}" title="{{ page.next.title }}">Next &rarr;</a></li>
       {% else %}
-      <li class="next disabled"><a>下一篇 &rarr;</a></li>
+        <li class="next disabled"><a>Next &rarr;</a>
       {% endif %}
-    </ul>
+      </ul>
+    </div>
+    <hr>
+    {% include JB/comments %}
   </div>
-
-</section>
-
-<section id="comments">
-  {% include JB/comments %}
-</section>
+</div>

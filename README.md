@@ -1,1 +1,7 @@
-请移步 <http://liberize.me/life/about-this-blog-template.html>。
+## Blog
+
+Personal Blog
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)

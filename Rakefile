@@ -40,16 +40,18 @@ module JB
   end #Path
 end #JB
 
-# Usage: rake post title="A Title" [date="2012-02-09"] [tags=[tag1, tag2]]
+# Usage: rake post title="A Title" [date="2012-02-09"] [tags=[tag1,tag2]] [category="category"]
 desc "Begin a new post in #{CONFIG['posts']}"
 task :post do
   abort("rake aborted: '#{CONFIG['posts']}' directory not found.") unless FileTest.directory?(CONFIG['posts'])
   title = ENV["title"] || "new-post"
   tags = ENV["tags"] || "[]"
+  category = ENV["category"] || ""
+  category = "\"#{category.gsub(/-/,' ')}\"" if !category.empty?
   slug = title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
   begin
     date = (ENV['date'] ? Time.parse(ENV['date']) : Time.now).strftime('%Y-%m-%d')
-  rescue Exception => e
+  rescue => e
     puts "Error - date format must be YYYY-MM-DD, please check you typed it correctly!"
     exit -1
   end
@@ -63,10 +65,9 @@ task :post do
     post.puts "---"
     post.puts "layout: post"
     post.puts "title: \"#{title.gsub(/-/,' ')}\""
-    post.puts 'keywords: [""]'
     post.puts 'description: ""'
-    post.puts 'category: ""'
-    post.puts 'tags: [""]'
+    post.puts "category: #{category}"
+    post.puts "tags: #{tags}"
     post.puts "---"
     post.puts "{% include JB/setup %}"
   end
@@ -91,7 +92,6 @@ task :page do
     post.puts "---"
     post.puts "layout: page"
     post.puts "title: \"#{title}\""
-    post.puts 'keywords: [""]'
     post.puts 'description: ""'
     post.puts "---"
     post.puts "{% include JB/setup %}"
@@ -100,7 +100,7 @@ end # task :page
 
 desc "Launch preview environment"
 task :preview do
-  system "jekyll --auto --server"
+  system "jekyll serve -w"
 end # task :preview
 
 # Public: Alias - Maintains backwards compatability for theme switching.
@@ -111,7 +111,7 @@ namespace :theme do
   # Public: Switch from one theme to another for your blog.
   #
   # name - String, Required. name of the theme you want to switch to.
-  #        The the theme must be installed into your JB framework.
+  #        The theme must be installed into your JB framework.
   #
   # Examples
   #
@@ -134,15 +134,10 @@ namespace :theme do
       puts "Generating '#{theme_name}' layout: #{File.basename(filename)}"
 
       open(File.join(CONFIG['layouts'], File.basename(filename)), 'w') do |page|
-        if File.basename(filename, ".html").downcase == "default"
-          page.puts "---"
-          page.puts File.read(settings_file) if File.exist?(settings_file)
-          page.puts "---"
-        else
-          page.puts "---"
-          page.puts "layout: default"
-          page.puts "---"
-        end 
+        page.puts "---"
+        page.puts File.read(settings_file) if File.exist?(settings_file)
+        page.puts "layout: default" unless File.basename(filename, ".html").downcase == "default"
+        page.puts "---"
         page.puts "{% include JB/setup %}"
         page.puts "{% include themes/#{theme_name}/#{File.basename(filename)} %}" 
       end
