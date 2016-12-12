@@ -7,7 +7,8 @@ description: ""
 ---
 
 *在32位MIPS体系结构下*，最多可寻址4GB地址空间。这4GB空间的分配是怎样的呢？让我们看下面这张图：
-[Figure 1 MIPS Logical Addressing Space](/images/kernel/32位mips地址空间.png)
+![Figure 1 MIPS Logical Addressing Space](/images/kernel/32位mips地址空间.png)
+Figure 1 MIPS Logical Addressing Space
 
 &emsp;&emsp;&emsp;&emsp;上图是MIPS处理器的逻辑寻址空间分布图。我们看到，2GB以下的地址空间，
 也就是从0x00000000到0x7FFFFFFF的这一段空间，为User Space，可以在User Mode下访问，
@@ -94,8 +95,9 @@ Cache中的内容尚未同步。这样，如果软件读取该地址，有可能
 * 转载: [Warp Drive 的时间隧道][Markdown简明教程]
 {% endhighlight %}
 
-[mips地址空间 ](http://blog.chinaunix.net/uid-22547469-id-5056345.html)
-[mips地址空间 ](http://joe.is-programmer.com/posts/17481.html)
+[mips地址空间](http://blog.chinaunix.net/uid-22547469-id-5056345.html)
+
+[mips地址空间](http://joe.is-programmer.com/posts/17481.html)
 
 [jekyll]:      http://jekyllrb.com
 [jekyll-gh]:   https://github.com/jekyll/jekyll
