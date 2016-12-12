@@ -73,6 +73,7 @@ __be32 dt_strings_size; //字符串块大小
 __be32 dt_struct_size; //结构块大小
 };
 ```
+
 ### 二 结构块（struct block）
 
 &emsp;&emsp;&emsp;&emsp;设备树结构块是一个线性化的结构体，是设备树的主体，以节点node的形式保存了目标单板上的设备信息。
@@ -242,7 +243,6 @@ struct property {
         - Maxim DS1338 real time clock.响应从机地址1101000 (0x58)
         - 64MB NOR flash，基地址0x30000000
 
-```
 
 #### 初始结构
 &emsp;&emsp;&emsp;&emsp;第一步，先构建一个计算机的基本架构，即一个有效设备树的最小架构。在这一步，要唯一地标志这台计算机

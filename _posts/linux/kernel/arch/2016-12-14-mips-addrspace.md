@@ -8,6 +8,7 @@ description: ""
 
 *在32位MIPS体系结构下*，最多可寻址4GB地址空间。这4GB空间的分配是怎样的呢？让我们看下面这张图：
 ![Figure 1 MIPS Logical Addressing Space](/images/kernel/32位mips地址空间.png)
+
 Figure 1 MIPS Logical Addressing Space
 
 &emsp;&emsp;&emsp;&emsp;上图是MIPS处理器的逻辑寻址空间分布图。我们看到，2GB以下的地址空间，
