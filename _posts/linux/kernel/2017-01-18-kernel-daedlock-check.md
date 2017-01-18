@@ -281,60 +281,109 @@ MODULE_LICENSE("GPL");
 进程进入D状态后是无法退出的。可以通过ps命令来查看：
 
 > root@apple:~# busybox ps
+> 
 > PID   USER     TIME   COMMAND
+> 
 > ......
+> 
 >   521 root       0:00 insmod dlock.ko
+> 
 > ......
 
 然后查看该进程的状态，可见已经进入了D状态
 
 > root@apple:~# cat /proc/521/status 
+> 
 > Name:   insmod
+> 
 > State:  D (disk sleep)
+> 
 > Tgid:   521
+> 
 > Ngid:   0
+> 
 > Pid:    521
+
 
 至此在等待两分钟后调试串口就会输出以下信息，可见每两分钟就会输出一次：
 
 > [  360.625466] INFO: task insmod:521 blocked for more than 120 seconds.
+> 
 > [  360.631878]       Tainted: G           O    4.1.15 #5
+> 
 > [  360.637042] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+> 
 > [  360.644986] [<c05278e8>] (__schedule) from [<c0527d34>] (schedule+0x40/0xa4)
+> 
 > [  360.652129] [<c0527d34>] (schedule) from [<c0527ec8>] (schedule_preempt_disabled+0x18/0x1c)
+> 
 > [  360.660570] [<c0527ec8>] (schedule_preempt_disabled) from [<c0529200>] (__mutex_lock_slowpath+0x6c/0xe4)
+> 
 > [  360.670142] [<c0529200>] (__mutex_lock_slowpath) from [<c05292bc>] (mutex_lock+0x44/0x48)
+> 
 > [  360.678432] [<c05292bc>] (mutex_lock) from [<bf026020>] (dlock_init+0x20/0x2c [dlock])
+> 
 > [  360.686480] [<bf026020>] (dlock_init [dlock]) from [<c0009558>] (do_one_initcall+0x90/0x1e8)
+> 
 > [  360.694976] [<c0009558>] (do_one_initcall) from [<c007ac4c>] (do_init_module+0x6c/0x1c0)
+> 
 > [  360.703170] [<c007ac4c>] (do_init_module) from [<c007c568>] (load_module+0x1690/0x1d34)
+> 
 > [  360.711284] [<c007c568>] (load_module) from [<c007cce8>] (SyS_init_module+0xdc/0x130)
+> 
 > [  360.719239] [<c007cce8>] (SyS_init_module) from [<c000f800>] (ret_fast_syscall+0x0/0x54)
+> 
 > [  480.725351] INFO: task insmod:521 blocked for more than 120 seconds.
+> 
 > [  480.731759]       Tainted: G           O    4.1.15 #5
+> 
 > [  480.736917] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+> 
 > [  480.744842] [<c05278e8>] (__schedule) from [<c0527d34>] (schedule+0x40/0xa4)
+> 
 > [  480.752029] [<c0527d34>] (schedule) from [<c0527ec8>] (schedule_preempt_disabled+0x18/0x1c)
+> 
+> 
 > [  480.760479] [<c0527ec8>] (schedule_preempt_disabled) from [<c0529200>] (__mutex_lock_slowpath+0x6c/0xe4)
+> 
 > [  480.770066] [<c0529200>] (__mutex_lock_slowpath) from [<c05292bc>] (mutex_lock+0x44/0x48)
+> 
 > [  480.778363] [<c05292bc>] (mutex_lock) from [<bf026020>] (dlock_init+0x20/0x2c [dlock])
+> 
 > [  480.786402] [<bf026020>] (dlock_init [dlock]) from [<c0009558>] (do_one_initcall+0x90/0x1e8)
+> 
 > [  480.794897] [<c0009558>] (do_one_initcall) from [<c007ac4c>] (do_init_module+0x6c/0x1c0)
+> 
 > [  480.803085] [<c007ac4c>] (do_init_module) from [<c007c568>] (load_module+0x1690/0x1d34)
+> 
 > [  480.811188] [<c007c568>] (load_module) from [<c007cce8>] (SyS_init_module+0xdc/0x130)
+> 
 > [  480.819113] [<c007cce8>] (SyS_init_module) from [<c000f800>] (ret_fast_syscall+0x0/0x54)
+> 
 > [  600.825353] INFO: task insmod:521 blocked for more than 120 seconds.
+> 
 > [  600.831759]       Tainted: G           O    4.1.15 #5
+> 
 > [  600.836916] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+> 
 > [  600.844865] [<c05278e8>] (__schedule) from [<c0527d34>] (schedule+0x40/0xa4)
+> 
 > [  600.852005] [<c0527d34>] (schedule) from [<c0527ec8>] (schedule_preempt_disabled+0x18/0x1c)
+> 
 > [  600.860445] [<c0527ec8>] (schedule_preempt_disabled) from [<c0529200>] (__mutex_lock_slowpath+0x6c/0xe4)
+> 
 > [  600.870014] [<c0529200>] (__mutex_lock_slowpath) from [<c05292bc>] (mutex_lock+0x44/0x48)
+> 
 > [  600.878303] [<c05292bc>] (mutex_lock) from [<bf026020>] (dlock_init+0x20/0x2c [dlock])
+> 
 > [  600.886339] [<bf026020>] (dlock_init [dlock]) from [<c0009558>] (do_one_initcall+0x90/0x1e8)
+> 
 > [  600.894835] [<c0009558>] (do_one_initcall) from [<c007ac4c>] (do_init_module+0x6c/0x1c0)
+> 
 > [  600.903023] [<c007ac4c>] (do_init_module) from [<c007c568>] (load_module+0x1690/0x1d34)
+> 
 > [  600.911133] [<c007c568>] (load_module) from [<c007cce8>] (SyS_init_module+0xdc/0x130)
+> 
 > [  600.919059] [<c007cce8>] (SyS_init_module) from [<c000f800>] (ret_fast_syscall+0x0/0x54)
 
 ## 三、总结
