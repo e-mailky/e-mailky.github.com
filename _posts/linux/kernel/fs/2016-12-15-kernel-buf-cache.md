@@ -22,6 +22,7 @@ description: ""
 > 注：用户空间看到的buffer和cache对内核而言都是page cache，即address_space；只不过操作函数和使用目的不同而已。
 
 ## 具体操作
+
 ### 读操作 
 &emsp;&emsp;&emsp;&emsp;读取的过程可以参考[这里](http://leanote.com/blog/post/56bfedbbab64416c54004a76) 
 中的最后一幅流程图部分
@@ -98,6 +99,7 @@ struct dirty_throttle_control {
 	unsigned long		pos_ratio;
 };
 ```
+
 ## 方法
 &emsp;&emsp;&emsp;&emsp;（待完整）
 &emsp;&emsp;&emsp;&emsp;
