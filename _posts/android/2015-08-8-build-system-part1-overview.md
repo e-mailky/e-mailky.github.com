@@ -1,7 +1,7 @@
 ---
 layout: post
-category: Android系统原理
 title: 编译系统(1)-概览
+categories: [Android]
 tagline: 
 tags:  [编译系统]
 ---

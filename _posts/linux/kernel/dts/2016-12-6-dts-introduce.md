@@ -256,6 +256,7 @@ struct property {
 
 #### CPU
 &emsp;&emsp;&emsp;&emsp;接下来就要描述各个CPU了。先添加一个“cpus”容器节点，再将每个CPU作为子节点添加。在本例中，系统是基于ARM的双核Cortex A9系统
+
 ```
 / { 
     compatible = "acme,coyotes-revenge"; 
@@ -283,6 +284,7 @@ struct property {
 
 #### 设备
 &emsp;&emsp;&emsp;&emsp;系统中的每个设备由device tree的一个节点来表示，接下来将为设备树添加设备节点。在我们讲到如何寻址和如何处理中断之前，暂时将新节点置空
+
 ```
 / { 
     compatible = "acme,coyotes-revenge"; 
