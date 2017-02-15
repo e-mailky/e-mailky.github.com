@@ -68,9 +68,9 @@ description: ""
 但它们的用法却极为相似。因此，本文将以断breakpoint为例，进行详细的介绍，关于watchpoint和catchpoint的
 介绍就相对比较粗略，相信读者朋友如果能够理解breakpoint的部分，那么便可以触类旁通，学会watchpoint和catchpoint的用法。
 
-### 1. Breakpoint: 作用是让程序执行到某个特定的地方停止运行
+### 一. Breakpoint: 作用是让程序执行到某个特定的地方停止运行
 
-#### A. 设置breakpoint：
+#### 设置breakpoint：
 
 1. break function: 在函数funtion入口处设置breakpoint
 2. break +offset: 在程序当前停止的行向前offset行处设置breakpoint
@@ -83,11 +83,11 @@ description: ""
 9. tbreak args: 设置一个只停止一次的breakpoints, args与break命令的一样。这样的breakpoint当第一次停下来后，就会被自己删除
 10. rbreak regex: 在所有符合正则表达式regex的函数处设置breakpoint
 
-#### B. info breakpoints [n]：
+#### info breakpoints [n]：
 
 查看第n个breakpoints的相关信息，如果省略了n，则显示所有breakpoints的相关信息
 
-#### C. pending breakpoints:
+#### pending breakpoints:
 
 是指设置在程序开始调试后加载的动态库中的位置处的breakpoints
 
@@ -96,14 +96,14 @@ description: ""
 3. set breakpoint pending off: GDB当前不能识别某个breakpoint时，直接报错
 4. show breakpoint pending: 查看GDB关于pending breakpoint的设置的行为(auto, on, off)
 
-#### D. breakpoints的删除：
+#### breakpoints的删除：
 
 1. clear: 清除当前stack frame中下一条指令之后的所有breakpoints
 2. clear function & clear filename:function: 清除函数function入口处的breakpoints
 3. clear linenum & clear filename:linenum: 清除第linenum行处的breakpoints
 4. delete [breakpoints] [range…]: 删除由range指定的范围内的breakpoints，range范围是指breakpoint的序列号的范围
 
-#### E. breakpoints的禁用、启用:
+####  breakpoints的禁用、启用:
 
 1. disable [breakpoints] [range…]: 禁用由range指定的范围内的breakpoints
 2. enable [breakpoints] [range…]: 启用由range指定的范围内的breakpoints
@@ -112,7 +112,7 @@ description: ""
 4. enable [breakpoints] delete [range…]: 启用range指定的范围内的breakpoints，
 等程序停下来后，这些breakpoints自动被删除
 
-#### F. 条件breakpoints相关命令：
+#### 条件breakpoints相关命令：
 
 1. 设置条件breakpoints可以通过break … if cond来设置，也可以通过condition bnum expression来设置，
 在这里首先要通过（1）中介绍的命令设置好breakpoints，然后用condition命令来指定某breakpoint的条件，
@@ -120,7 +120,7 @@ description: ""
 2. condition bnum: 取消第bnum个breakpoint的条件
 3. ignore bnum count: 第bnum个breakpoint跳过count次后开始生效
 
-#### G. 指定程序在某个breakpoint处停下来后执行一串命令：
+####  指定程序在某个breakpoint处停下来后执行一串命令：
 
 1. 格式：commands [bnum]
   
@@ -146,7 +146,7 @@ end
 
 上面的例子含义：当x>0时，在foo函数处停下来，然后打印出x的值，然后继续运行程序
 
-### 2. Watchpoint: 它的作用是让程序在某个表达式的值发生变化的时候停止运行，达到‘监视’该表达式的目的
+### 二 Watchpoint: 它的作用是让程序在某个表达式的值发生变化的时候停止运行，达到‘监视’该表达式的目的
 
 1. 设置watchpoints:
   + watch expr: 设置写watchpoint，当应用程序写expr, 修改其值时，程序停止运行
@@ -156,7 +156,7 @@ end
 查看当前调试的程序中设置的watchpoints相关信息
 3. watchpoints和breakpoints很相像，都有enable/disabe/delete等操作，使用方法也与breakpoints的类似
 
-### 3. Catchpoint: 的作用是让程序在发生某种事件的时候停止运行，比如C++中发生异常事件，加载动态库事件
+### 三 Catchpoint: 的作用是让程序在发生某种事件的时候停止运行，比如C++中发生异常事件，加载动态库事件
 
 #### 设置catchpoints:
 
@@ -202,20 +202,20 @@ end
 1. 缺省方式：fork/vfork之后，GDB仍然调试父进程，与子进程不相关
 2. set follow-fork-mode mode：设置GDB行为，mode为parent时，与缺省情况一样；mode为child时，
 fork/vfork之后，GDB进入子进程调试，与父进程不再相关
-3.show follow-fork-mode：查看当前GDB多进程跟踪模式的设置
+3. show follow-fork-mode：查看当前GDB多进程跟踪模式的设置
 
 ### step & stepi
 
 1. step [count]: 如果没有指定count, 则继续执行程序，直到到达与当前源文件不同的源文件中时停止；
-如果指定了count, 则重复行上面的过程count次
+如果指定了count, 则重复coun行上面的过程count次
 2. stepi [count]: 如果没有指定count, 继续执行下一条机器指令，然后停止；如果指定了count，则重复上面的过程count次
 3. step比较常见的应用场景：在函数func被调用的某行代码处设置断点，等程序在断点处停下来后，
-可以用step命令进入该函数的实现中，但前提是该函数编译的时候把调试信息也编译进去了，负责step会跳过该函数。
+可以用step命令进入该函数的实现中，但前提是该函数编译的时候把调试信息也编译进去了，否则step会跳过该函数。
 
 ### next & nexti
 
 1. next [count]: 如果没有指定count, 单步执行下一行程序；如果指定了count，单步执行接下来的count行程序
-2. nexti [count]: 如果没有指定count, 单步执行下一条指令；如果指定了count, 音频执行接下来的count条执行
+2. nexti [count]: 如果没有指定count, 单步执行下一条指令；如果指定了count, 单步执行接下来的count条执行
 3. stepi和nexti的区别：nexti在执行某机器指令时，如果该指令是函数调用，那么程序执行直到该函数调用结束时才停止。
 
 ### .continue [ignore-count] 
@@ -233,7 +233,7 @@ fork/vfork之后，GDB进入子进程调试，与父进程不再相关
 
 1. info signals & info handle：打印所有的信号相关的信息，以及GDB缺省的处理方式：
 
-![图2](/images/gnu/gdb_signal.jpg)
+  ![图2](/images/gnu/gdb_signal.jpg)
 
 2. handle signal action: 设置GDB对具体某个信号的处理方式。signal可以为信号整数值，
 也可以为SIGSEGV这样的符号。action的取值有
@@ -316,10 +316,10 @@ foo那一桢没有PC的地址，GDB通过这样来标示该桢是当前正在执
 文档信息
 --------------
 * 版权声明：自由转载-非商用
-* 转载: [Markdown简明教程]
+* 转载: [玩转GDB]
 {% endhighlight %}
 
-[Markdown简明教程](http://www.ruanyifeng.com/blog/2014/06/git_remote.html)
+[玩转GDB](http://www.wuzesheng.com/?p=1327)
 
 [jekyll]:      http://jekyllrb.com
 [jekyll-gh]:   https://github.com/jekyll/jekyll

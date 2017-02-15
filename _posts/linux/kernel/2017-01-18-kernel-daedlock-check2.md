@@ -1,6 +1,6 @@
 ---
 layout: post
-title:   Linux内核调试技术——进程D状态死锁检测
+title:   Linux内核调试技术——进程R状态死锁检测
 categories: [Linux]
 tags: [Linux, Kernel, 进程管理]
 description: ""
