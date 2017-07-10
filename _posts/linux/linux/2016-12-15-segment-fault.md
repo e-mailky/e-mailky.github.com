@@ -29,7 +29,7 @@ description: ""
 ![图](/images/kernel/segment2.png)
 
 ## 如何尽可能捕捉异常打印
-### 内核配置`CONFIG\_DEBUG\_USER`
+### 内核配置`CONFIG_DEBUG_USER`
 
 ![图](/images/kernel/segment3.png)
 
