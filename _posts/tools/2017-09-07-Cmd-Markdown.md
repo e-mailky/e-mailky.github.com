@@ -1,4 +1,4 @@
-﻿---
+---
 layout: post
 title:  常用MIPS指令
 categories: [Linux]
