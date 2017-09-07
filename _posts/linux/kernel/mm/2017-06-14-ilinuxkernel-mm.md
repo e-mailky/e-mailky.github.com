@@ -6,7 +6,6 @@ tags: [Linux, C, Kernel, 内存管理,]
 description: ""
 ---
 
-## Markdown是什么
 
 
 [Linux内存地址映射](/docments/Linux_Memory_Address_Mapping.pdf)

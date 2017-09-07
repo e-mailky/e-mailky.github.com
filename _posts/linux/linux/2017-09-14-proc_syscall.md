@@ -6,8 +6,6 @@ tags: [Linux, Dev, C, FS, 进程管理]
 description: ""
 ---
 
-## Markdown是什么
-
 &emsp;&emsp;&emsp;&emsp;当一个程序发生故障时，有时候想通过了解该进程正在执行的系统调用来排查问题。
 通常可以用 strace 来跟踪。但是当进程已经处于 D 状态（uninterruptible sleep）时，strace 也帮不上忙。这时候可以通过
 
