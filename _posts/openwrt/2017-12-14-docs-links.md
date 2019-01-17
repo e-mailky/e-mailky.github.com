@@ -19,7 +19,7 @@ description: ""
 * 转载: []
 {% endhighlight %}
 
-[Markdown简明教程](http://www.ruanyifeng.com/blog/2014/06/git_remote.html)
+[Git远程操作详解](http://www.ruanyifeng.com/blog/2014/06/git_remote.html)
 
 [jekyll]:      http://jekyllrb.com
 [jekyll-gh]:   https://github.com/jekyll/jekyll
