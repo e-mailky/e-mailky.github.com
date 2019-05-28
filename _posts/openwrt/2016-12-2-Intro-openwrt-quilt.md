@@ -3,7 +3,7 @@ layout: post
 title: openwrt quilt学习笔记 
 category : Linux
 tagline: 
-tags : Linux, Openwrt
+tags : Linux, OpenWrt
 ---
 
 # 安装

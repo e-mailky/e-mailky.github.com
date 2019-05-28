@@ -28,7 +28,7 @@ spawn_procd则execp("procd"),至此0号进程/sbin/init被1号进程/sbin/procd�
 2. 再去执行/etc/init.d/\*文件,启动各个服务。
 
 
-*第二次执行 /etc/preinit的过程：*
+**第二次执行 /etc/preinit的过程：**
 
 preinit功能由几个脚本组成，主脚本是/etc/preinit，它会读取其它的脚本【其中hook_XX函数库在/lib/functions/preinit.sh。
 其它功能性的脚本在/lib/preinit/\*】。它定义了一些函数挂到hook上.当运行时，这些hook们会启动函数按函数加入的顺序。
@@ -51,7 +51,7 @@ hook点如下：
 
     boot_run_hook preinit_main ## export -n PI_RAN_define_default_set_state=1 export -n PI_RAN_define_default_set_state=1
 
-*procd启动各服务*
+**procd启动各服务**
 
 * procd: - early -   //初始化看门狗。
 * procd: - watchdog -
